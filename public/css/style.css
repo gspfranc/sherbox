@@ -1,0 +1,13 @@
+#list {
+  margin-top: 50px;
+}
+
+#list li {
+  padding: 20px;  
+  cursor: pointer;
+  color: gray;
+}
+
+#list li:hover {
+  border: 1px solid gray;
+}
