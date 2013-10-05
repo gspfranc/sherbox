@@ -6,12 +6,14 @@
   padding: 20px;  
   cursor: pointer;
   color: gray;
+  margin: 3px;
 }
 
 #list li:hover {
   border: 1px solid gray;
 }
 
-#filepicker {
-  margin: 20px 0;
+#dropbox h2 {
+  color: gray;
+  text-align : center;
 }
