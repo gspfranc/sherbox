@@ -1,0 +1,24 @@
+<input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
+
+<script src="./sjcl.js"></script>
+
+<script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    var file = files[0];
+
+    var reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onloadend = function(evt) {
+      var crypt = sjcl.encrypt("password", reader.result);
+      var uncrypt = sjcl.decrypt("password", crypt);
+      console.log(uncrypt);
+
+    }
+
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
