@@ -15,16 +15,22 @@ app.configure( function() {
   app.use(express.static(__dirname + '/public'));
 });
 
-app.get('/upload', function(req, res){
-  var files = JSON.parse(req.query.files);
-
-  files.forEach(function(file){
-    console.log(file);
-  });
+app.get('/put', function(req, res){
+  var crypt = req.body.crypt;
+  var name = req.body.name;
+  console.log("A crypt has been uploaded !" + crypt);
+  Links.create({name: name, crypt: crypt});
+  console.log(crypt + 'has been saved to the DB');
 }); 
 
 app.get('/', function(req, res) {
 console.log(req.session.boxId);
+
+var key = req.body.key
+var link = Links.find({ 'key' : key}, function (err, links){
+  // Do something?
+});
+
 if(req.session.boxId){
 //The boxID is present
 	
