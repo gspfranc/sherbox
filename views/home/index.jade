@@ -10,11 +10,14 @@ html
   body
     div.container
       div.page-header
-        h1 Sherbox <small>securly share your files</small>
-        h4 Box : <a id="box"></a>
+        div.row
+          div.col-md-6
+            h1 Sherbox <small>securly share your files</small>
+          div.col-md-6(style="text-align: right; padding-top: 30px")
+            h4 Box : <a id="box"></a>
 
       div.row
-        div#dropbox.well.col-md-10.col-md-offset-1
+        div#dropbox.well.col-md-12
           h2 Drag and drop files here
 
       div.row
@@ -34,25 +37,30 @@ html
           reader.readAsBinaryString(file);
 
           reader.onloadend = function(evt) {
+            var dropbox = $("#dropbox h2");
+            dropbox.html("Encrypting...");
             var crypt = sjcl.encrypt("password", reader.result);
 
+            dropbox.html("Sending...");
             $.post("/put", { 
               crypt: crypt, 
               name: file.name,
               box: box
               }, function(data) {
-                console.log(data);
-                var div = $('<div id="#data-' + data.shortId + '">');
+                dropbox.html("Done!");
+                var div = $('<div id="data-' + data.shortId + '">');
                 div.html(data.crypt);
                 $("#data").append(div);
 
-                var a = $('<a href="# class="well">');
+                var a = $('<a href="#" class="file well">');
                 a.html(data.name);
                 a.attr('id', data.shortId);
 
                 var li = $("<li>");
-          
+                li.append(a);
 
+                $("#list").append(li);
+                dropbox.html("Drag and drop files here");
               }, "json");
           }
         }
@@ -92,13 +100,13 @@ html
       $("#dropbox").on('dragover', dragover);
       $("#dropbox").on('drop', drop);
 
-      var boxref = window.location.href;
+      var box = '#{box}';
+      var boxref = window.location.origin + '/box/' + box;
       $("#box").html(boxref);
       $("#box").attr('href', boxref);
 
-      var box = '#{box}';
 
-      $('.file').on('click', function(e) {
+      $(document).on('click', '.file', function(e) {
         var id = $(e.target).attr('id');
         var name = $(e.target).html();
         var content = $('#data-' + id).html();
