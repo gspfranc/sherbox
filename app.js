@@ -24,22 +24,23 @@ app.get('/put', function(req, res){
 }); 
 
 app.get('/', function(req, res) {
-console.log(req.session.boxId);
-
-var key = req.body.key
-var link = Links.find({ 'key' : key}, function (err, links){
-  // Do something?
-});
 
 if(req.session.boxId){
-//The boxID is present
+console.log("Session is found");
+	var key = req.body.key
+	var link = Links.find({ key : key}, function (err, links){
+		console.log("Files Found");
+		 res.render('home', { boxID: req.session.boxId,files: links}); 
+	});
 	
 } else {
-//The boxID is not present
+	console.log("Box is not initiated, ID is created");
+	//The boxID is not present
 	//get new session ID
 	req.session.boxId = (shortId.generate()).toUpperCase();
-}
-  res.render('home', { boxID: req.session.boxId}); 
+			 res.render('home', { boxID: req.session.boxId}); 
+
+	}
 });
 
 app.listen(3000);
