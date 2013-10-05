@@ -1,13 +1,13 @@
 var express = require('express'),
-    app = express(),
-    upload = require('./upload'),
-    Schema = require('./schema'),
-    Links = Schema.Links;
+app = express(),
+upload = require('./upload'),
+Schema = require('./schema'),
+Links = Schema.Links;
 var shortId = require('shortid');
 
 app.configure( function() {
   app.use(express.bodyParser());
-  app.use(express.logger());
+  //app.use(express.logger());
   app.use(express.cookieParser());
   app.set('view engine', 'jade');
   app.set('views', __dirname + '/views');
@@ -24,23 +24,15 @@ app.get('/put', function(req, res){
 }); 
 
 app.get('/', function(req, res) {
+  var box = req.session.box || shortId.generate();
+  res.redirect('/box/' + box);
+});
 
-if(req.session.boxId){
-console.log("Session is found");
-	var key = req.body.key
-	var link = Links.find({ key : key}, function (err, links){
-		console.log("Files Found");
-		 res.render('home', { boxID: req.session.boxId,files: links}); 
-	});
-	
-} else {
-	console.log("Box is not initiated, ID is created");
-	//The boxID is not present
-	//get new session ID
-	req.session.boxId = (shortId.generate()).toUpperCase();
-			 res.render('home', { boxID: req.session.boxId}); 
-
-	}
+app.get('/box/:box', function(req, res){
+  var box = req.params.box;
+  Links.find({ box: box }, function (err, files) {
+    res.render('home', { box: box, files: files }); 
+  });
 });
 
 app.listen(3000);
