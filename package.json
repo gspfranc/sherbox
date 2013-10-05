@@ -9,6 +9,7 @@
     "mongoose": "3.6.19",
     "jade": "*",
     "node-uuid": "*",
-    "shortid " : "*"
+    "shortid " : "*",
+    "twilio": "*"
   }
 }

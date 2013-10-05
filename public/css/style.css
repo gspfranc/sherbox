@@ -2,18 +2,22 @@
   margin-top: 50px;
 }
 
-#list li {
+#list li a {
   padding: 20px;  
   cursor: pointer;
   color: gray;
   margin: 3px;
 }
 
-#list li:hover {
+#list li a:hover {
   border: 1px solid gray;
 }
 
 #dropbox h2 {
   color: gray;
   text-align : center;
+}
+
+#data {
+  display: none;
 }

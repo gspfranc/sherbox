@@ -15,10 +15,16 @@ app.configure( function() {
   app.use(express.static(__dirname + '/public'));
 });
 
-app.get('/put', function(req, res){
-  var crypt = req.body.crypt;
-  var name = req.body.name;
-  Links.create({ name: name, crypt: crypt, box: req.session.box });
+app.post('/put', function(req, res){
+  console.log(req.body.crypt);
+  Links.create({ 
+    name: req.body.name, 
+    crypt: req.body.crypt, 
+    box: req.body.box 
+  }, function(err, link) {
+    if (err) console.log(err);
+    res.json(link);
+  });
 }); 
 
 app.get('/', function(req, res) {
