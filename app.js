@@ -13,13 +13,10 @@ app.configure( function() {
 });
 
 app.get('/upload', function(req, res){
+  var files = JSON.parse(req.query.files);
 
-  upload.uploadFile(req, __dirname + '/../uploads/', function(data) {
-    if(data.success) {
-      res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 200);
-    }
-    else
-      res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
+  files.forEach(function(file){
+    console.log(file);
   });
 }); 
 

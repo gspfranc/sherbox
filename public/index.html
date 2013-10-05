@@ -41,8 +41,9 @@
           reader.readAsBinaryString(file);
 
           reader.onloadend = function(evt) {
+            console.log(file);
             var crypt = sjcl.encrypt("password", reader.result);
-            console.log(crypt);
+            //console.log(crypt);
             $("#list").append('<li class="well">' + file.name  + '</li>')
           }
         }
