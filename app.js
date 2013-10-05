@@ -1,5 +1,6 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+    app = express(),
+    upload = require('./upload');
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -10,8 +11,14 @@ app.configure( function() {
 });
 
 app.get('/upload', function(req, res){
-  res.json({ status: 'hello world' });
-});
+ upload.uploadFile(req, __dirname + '/../uploads/', function(data) {
+    if(data.success) {
+      res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 200);
+    }
+    else
+      res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
+  });
+}); 
 
 app.listen(3000);
 console.log("Listening on port 3000")

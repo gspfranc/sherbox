@@ -1,24 +1,37 @@
-<input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
+<html>
+  <head>
+    <link href="/css/bootstrap.css" rel="stylesheet"/>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/sjcl.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>SherBox <small>securly share your files</small></h1>
+      </div>
+      <div class="row">
+        <input type="file" id="files" name="files[]" multiple />
+        <output id="list"></output>
+      </div>
+    </div>
 
-<script src="./sjcl.js"></script>
+    <script>
+      function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+        var file = files[0];
 
-<script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-    var file = files[0];
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
 
-    var reader = new FileReader();
-    reader.readAsText(file);
+        reader.onloadend = function(evt) {
+          var crypt = sjcl.encrypt("password", reader.result);
+          console.log(crypt);
+        }
 
-    reader.onloadend = function(evt) {
-      var crypt = sjcl.encrypt("password", reader.result);
-      var uncrypt = sjcl.decrypt("password", crypt);
-      console.log(uncrypt);
+      }
 
-    }
-
-  }
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>
+      $('#files').on('change', handleFileSelect);
+    </script>
+  </body>
+</html>
