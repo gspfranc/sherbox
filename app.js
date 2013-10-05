@@ -3,7 +3,7 @@ var express = require('express'),
     upload = require('./upload'),
     Schema = require('./schema'),
     Links = Schema.Links;
-var uuid = require('node-uuid');
+var shortId = require('shortid');
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -24,18 +24,15 @@ app.get('/upload', function(req, res){
 }); 
 
 app.get('/', function(req, res) {
+console.log(req.session.boxId);
 if(req.session.boxId){
 //The boxID is present
-
+	
 } else {
 //The boxID is not present
-
-//get new session ID
-req.session.boxId = uuid.v1();
-
+	//get new session ID
+	req.session.boxId = (shortId.generate()).toUpperCase();
 }
-
-
   res.render('home', { boxID: req.session.boxId}); 
 });
 
