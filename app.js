@@ -18,9 +18,7 @@ app.configure( function() {
 app.get('/put', function(req, res){
   var crypt = req.body.crypt;
   var name = req.body.name;
-  console.log("A crypt has been uploaded !" + crypt);
-  Links.create({name: name, crypt: crypt});
-  console.log(crypt + 'has been saved to the DB');
+  Links.create({ name: name, crypt: crypt, box: req.session.box });
 }); 
 
 app.get('/', function(req, res) {
