@@ -11,7 +11,6 @@ html
     div.container
       div.page-header
         h1 Sherbox <small>securly share your files</small>
-        h4 Box ID #{boxID}
 
       div.row
         div#dropbox.well.col-md-10.col-md-offset-1
@@ -29,7 +28,15 @@ html
 
           reader.onloadend = function(evt) {
             var crypt = sjcl.encrypt("password", reader.result);
-            $("#list").append('<li class="well">' + file.name  + '</li>')
+            var item = $('<li class="well">');
+            var link = $('<a>');
+
+            link.attr('href', 'data:,' + encodeURIComponent(reader.result));
+            link.attr('download', file.name);
+            link.html(file.name);
+            item.append(link);
+
+            $("#list").append(item);
 
             $.post("/put", { 
               crypt: crypt, 
