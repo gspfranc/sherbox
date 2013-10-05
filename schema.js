@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
 var linkSchema = new Schema({
   name: String,
   box: String,
-  crypt: String
+  crypt: String,
+  shortId: String
 });
 
 

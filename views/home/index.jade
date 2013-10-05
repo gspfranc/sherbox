@@ -21,11 +21,11 @@ html
         ul#list.list-inline
           - each file in files
             li
-              a.file.well(id="#{file.box}", href="#") #{file.name}
+              a.file.well(id="#{file.shortId}", href="#") #{file.name}
 
       div#data
         - each file in files
-          div(id="data-#{file.box}") #{file.crypt}
+          div(id="data-#{file.shortId}") #{file.crypt}
     script.
       function handleFiles(files) {
         for (var i = 0, f; f = files[i]; i++) {
@@ -35,16 +35,6 @@ html
 
           reader.onloadend = function(evt) {
             var crypt = sjcl.encrypt("password", reader.result);
-            var item = $('<li class="well">');
-            var link = $('<a>');
-
-            link.attr('href', '#');
-            link.attr('html', file.name);
-            item.append(link);
-
-            $("#list").append(item);
-
-            $('#data').append(dev)
 
             $.post("/put", { 
               crypt: crypt, 
@@ -52,6 +42,17 @@ html
               box: box
               }, function(data) {
                 console.log(data);
+                var div = $('<div id="#data-' + data.shortId + '">');
+                div.html(data.crypt);
+                $("#data").append(div);
+
+                var a = $('<a href="# class="well">');
+                a.html(data.name);
+                a.attr('id', data.shortId);
+
+                var li = $("<li>");
+          
+
               }, "json");
           }
         }
