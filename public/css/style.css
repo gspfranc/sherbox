@@ -11,3 +11,7 @@
 #list li:hover {
   border: 1px solid gray;
 }
+
+#filepicker {
+  margin: 20px 0;
+}

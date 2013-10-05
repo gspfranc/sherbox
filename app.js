@@ -1,6 +1,8 @@
 var express = require('express'),
     app = express(),
-    upload = require('./upload');
+    upload = require('./upload'),
+    Schema = require('./schema'),
+    Links = Schema.Links;
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -11,7 +13,8 @@ app.configure( function() {
 });
 
 app.get('/upload', function(req, res){
- upload.uploadFile(req, __dirname + '/../uploads/', function(data) {
+
+  upload.uploadFile(req, __dirname + '/../uploads/', function(data) {
     if(data.success) {
       res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 200);
     }
