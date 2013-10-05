@@ -3,6 +3,7 @@ var express = require('express'),
     upload = require('./upload'),
     Schema = require('./schema'),
     Links = Schema.Links;
+var uuid = require('node-uuid');
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -23,7 +24,19 @@ app.get('/upload', function(req, res){
 }); 
 
 app.get('/', function(req, res) {
-  res.render('home', { hello: 'world'}); 
+if(req.session.boxId){
+//The boxID is present
+
+} else {
+//The boxID is not present
+
+//get new session ID
+req.session.boxId = uuid.v1();
+
+}
+
+
+  res.render('home', { boxID: req.session.boxId}); 
 });
 
 app.listen(3000);
