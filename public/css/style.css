@@ -1,5 +1,4 @@
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
-
+@import url("/css/bootstrap-glyphicons.css");
 
 #list {
   margin-top: 50px;
@@ -14,6 +13,7 @@
 
 #list li a:hover {
   border: 1px solid gray;
+  text-decoration: none;
 }
 
 #dropbox h2 {
