@@ -118,6 +118,7 @@ $(document).ready(function(){
 
   var boxref = window.location.origin + '/box/' + window.box;
   $("#box").val(boxref);
+  $("#twitterurl").attr('href', 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(boxref));
 
   startCountdown();
 
