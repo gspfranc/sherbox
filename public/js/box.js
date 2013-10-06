@@ -15,7 +15,7 @@ function startCountdown(createdOn){
     seconds = parseInt(seconds_left % 60);
     if (hours >= 1)
       countdown.style.color = "#FFFFFF"
-    if (minutes > 4 && minutes < 15)
+    else if (minutes > 4 && minutes < 15)
       countdown.style.color = "#FFFF00"
     else if (minutes < 3)
       countdown.style.color = "#FF0000"
