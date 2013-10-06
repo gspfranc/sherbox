@@ -13,26 +13,28 @@ html
       window.box = '#{box}';
 
   body
-    div.container
+    div#title
+      h2 This is the box #{box}
+    div#app.container
       div.page-header
         div.row
           div.col-md-6
-            h1 Sherbox <small>securly share your files</small>
+            h1 Sherbox <small>securely share your files</small>
           div.col-md-6(style="text-align: right; padding-top: 30px")
             a(data-toggle="modal" href="#myModal" class="btn btn-default") ...
-
-      script.
       div.row
-        div#dropbox.well.col-md-12
-          h2 Drag and drop files here
+        div#dropbox.col-md-12
+          div.well
+            h2 Drag and drop files here
 
       div.row
-        ul#list.list-inline
-          - each file in files
-            li
-              a.file.well(id="#{file.shortId}", href="#") 
-                span.glyphicon.glyphicon-file &nbsp;
-                span #{file.name}
+        div.col-md-12
+          ul#list.list-inline
+            - each file in files
+              li
+                a.file.well(id="#{file.shortId}", href="#") 
+                  span.glyphicon.glyphicon-file &nbsp;
+                  span #{file.name}
 
       div#data
         - each file in files
