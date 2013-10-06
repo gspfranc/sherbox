@@ -121,7 +121,9 @@ $(document).ready(function(){
 
   var boxref = window.location.origin + '/box/' + window.box;
   $("#box").val(boxref);
-  $("#twitterurl").attr('href', 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(boxref));
+  $("#twitterurl").attr('href', 'http://twitter.com/intent/tweet?text=Want to share some files with me? Go check my SherBox at ' + encodeURIComponent(boxref));
+
+
 
   startCountdown(window.createdOn);
   setTimeout(function() {
