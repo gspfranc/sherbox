@@ -3,6 +3,8 @@ var client = require('twilio')('ACa8710937acf29f2aa389d73d9a06d7a8', '422155d2f0
 
 exports.notify = function(number,box){
 	console.log("sending...");
+	if (!number.charAt(0) == '1')
+		number = "1"+number;
 client.sendSms({
     to:"+"+number, 
     from: '+15146131070', // A number you bought from Twilio and can use for outbound communication
