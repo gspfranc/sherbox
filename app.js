@@ -3,7 +3,8 @@ app = express(),
 upload = require('./upload'),
 Schema = require('./schema'),
 SMS = require('./notification'),
-Links = Schema.Links;
+Links = Schema.Links,
+Boxes = Schema.Boxes;
 var shortId = require('shortid');
 
 
@@ -20,6 +21,11 @@ app.configure( function() {
 });
 
 app.post('/put', function(req, res){
+  Boxes.create({
+    box: req.body.box,
+    createdOn: Date.getDate()
+  })
+
   Links.create({ 
   	shortId: shortId.generate(),
     name: req.body.name, 
@@ -41,7 +47,9 @@ app.get('/', function(req, res) {
 app.get('/box/:box', function(req, res){
   var box = req.params.box;
   Links.find({ box: box }, function (err, files) {
-    res.render('home', { box: box, files: files }); 
+    var myBox = Boxes.find({ box: box })
+
+    res.render('home', { box: box, files: files, createdOn: myBox.createdOn}); 
   });
 });
 
