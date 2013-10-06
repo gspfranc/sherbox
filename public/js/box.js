@@ -116,8 +116,8 @@ $(document).ready(function(){
   $("#dropbox").on('drop', drop);
 
   var boxref = window.location.origin + '/box/' + window.box;
-  $("#box").html(boxref);
-  $("#box").attr('href', boxref);
+  $("#box").val(boxref);
 
   startCountdown();
+
 });

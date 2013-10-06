@@ -26,7 +26,7 @@ app.post('/put', function(req, res){
   }, function(err, file) {
     if (err) console.log(err);
 
-    Boxes.find({ box: box }, function (err, mybox) {
+    Boxes.findOne({ box: req.body.box }, function (err, mybox) {
       for (phone in mybox.mobiles)
         SMS.notify(phone, mybox.box);
     });
