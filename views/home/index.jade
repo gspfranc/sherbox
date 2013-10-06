@@ -19,7 +19,13 @@ html
           div.col-md-6
             h1 Sherbox <small>securly share your files</small>
           div.col-md-6(style="text-align: right; padding-top: 30px")
-            h4 Box : <a id="box"></a>
+            h4 Box : <a id="box"></a>   
+     div.container
+      div.page-content
+        p SMS notification: 
+          input(name="tags" id="tags" value="" maxlength="10")
+      script.
+        $('#tags').tagsInput();
       div.row
         div#dropbox.well.col-md-12
           h2 Drag and drop files here
