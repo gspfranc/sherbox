@@ -93,4 +93,5 @@ $(document).ready(function(){
   var boxref = window.location.origin + '/box/' + window.box;
   $("#box").html(boxref);
   $("#box").attr('href', boxref);
+  countdown();
 });

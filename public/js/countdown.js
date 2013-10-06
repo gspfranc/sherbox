@@ -1,10 +1,11 @@
-function countdown(){
+window.countdown = function (){
+  console.log("maman");
   var timeLimit = 60 * 1000; // in sec
   var expiration_time = new Date().getTime() + timeLimit;
   var hours, minutes, seconds;
   var countdown = document.getElementById('countdown');
   var timer = setInterval(function() {
-   
+   console.log("patate");
     var current_time = new Date().getTime();
     var seconds_left = (expiration_time - current_time) / 1000
     hours = parseInt(seconds_left / 3600);
