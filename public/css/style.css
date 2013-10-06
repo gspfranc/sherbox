@@ -4,6 +4,10 @@
   margin-top: 50px;
 }
 
+#list li {
+  margin-bottom: 55px;
+}
+
 #list li a {
   padding: 20px;  
   cursor: pointer;

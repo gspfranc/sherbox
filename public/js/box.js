@@ -34,6 +34,7 @@ function handleFiles(files) {
       var crypt = sjcl.encrypt(password, reader.result);
 
       dropbox.html("Sending...");
+
       $.post("/put", { 
         crypt: crypt, 
         name: file.name,
@@ -45,7 +46,7 @@ function handleFiles(files) {
         $("#data").append(div);
 
         var a = $('<a href="#" class="file well">');
-        a.html(data.name);
+        a.html('<span class="glyphicon glyphicon-file">&nbsp;</span><span>' + data.name + '</span>');
         a.attr('id', data.shortId);
 
         var li = $("<li>");
