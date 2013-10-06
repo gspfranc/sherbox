@@ -73,5 +73,16 @@ app.post('/phone/remove', function(req, res) {
   });  
 });
 
+var cleanBoxes = function() {
+  console.log("cleaning boxes");
+  var date = new Date();
+  date.setTime(date.getTime() - 7200000);
+  var query = { createdOn: { $lte: date }};
+  Boxes.remove(query, function(err, boxes){}); 
+  setTimeout(function(){ cleanBoxes() }, 60000);
+};
+
+cleanBoxes();
+
 app.listen(3000);
 console.log("Listening on port 3000")
