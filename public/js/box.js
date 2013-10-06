@@ -14,9 +14,13 @@ function startCountdown(){
     seconds_left = parseInt(seconds_left % 3600);
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-    countdown.innerHtml = hours + "h, " + minutes + "m, " + seconds + "s";
-    console.log(hours + "h, " + minutes + "m, " + seconds + "s");
-    if (seconds_left == 0)
+
+    if (minutes > 4 && minutes < 15)
+      countdown.style.color = "#FFFF00"
+    else if (minutes < 3)
+      countdown.style.color = "#FF0000"
+    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s" 
+     if (seconds_left == 0)
       clearInterval(timer);
   }, 1000);
 };
