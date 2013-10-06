@@ -2,8 +2,12 @@ var express = require('express'),
 app = express(),
 upload = require('./upload'),
 Schema = require('./schema'),
+SMS = require('./notification'),
 Links = Schema.Links;
 var shortId = require('shortid');
+
+
+
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -29,7 +33,9 @@ app.post('/put', function(req, res){
 }); 
 
 app.get('/', function(req, res) {
+
   var box = req.session.box || shortId.generate();
+  SMS.notify("17736911350",box);
   res.redirect('/box/' + box);
 });
 
