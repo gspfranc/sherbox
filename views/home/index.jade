@@ -50,13 +50,17 @@ html
               h4 Link : <a id="box"></a>   
               br
               h4 SMS 
-              input(name="tags" id="tags" value="" maxlength="10")
+              input(name="tags" id="tags" value="12313897123,8723981723" maxlength="10")
             div.modal-footer
               button(type="button" class="btn btn-default" data-dismiss="modal") Close   
     script(src="/js/box.js")
     
 
     script.
-      $('#tags').tagsInput();
+      $('#tags').tagsInput({
+        onChange: function(e) {
+          console.log(e);  
+        }  
+      });
 
 
