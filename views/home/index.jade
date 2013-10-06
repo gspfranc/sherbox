@@ -9,106 +9,29 @@ html
     script(src="/js/sjcl.js")
     script(src="/js/labels/jquery.tagsinput.js")
     link(rel="stylesheet" href="/js/labels/jquery.tagsinput.css")
+    script.
+      window.box = '#{box}';
+
   body
     div.container
       div.page-header
-        h1 Sherbox <small>securly share your files</small>
-        h4 Box : <a id="box"></a>
-    div.container
-      div.page-content
-        p SMS notification: 
-          input(name="tags" id="tags" value="" maxlength="10")
-      script.
-        $('#tags').tagsInput();
-
+        div.row
+          div.col-md-6
+            h1 Sherbox <small>securly share your files</small>
+          div.col-md-6(style="text-align: right; padding-top: 30px")
+            h4 Box : <a id="box"></a>
       div.row
-        div#dropbox.well.col-md-10.col-md-offset-1
+        div#dropbox.well.col-md-12
           h2 Drag and drop files here
 
       div.row
         ul#list.list-inline
           - each file in files
             li
-              a.file.well(id="#{file.box}", href="#") #{file.name}
+              a.file.well(id="#{file.shortId}", href="#") #{file.name}
 
       div#data
         - each file in files
-          div(id="data-#{file.box}") #{file.crypt}
-    script.
-      function handleFiles(files) {
-        for (var i = 0, f; f = files[i]; i++) {
-          var file = files[i];
-          var reader = new FileReader();
-          reader.readAsBinaryString(file);
+          div(id="data-#{file.shortId}") #{file.crypt}
 
-          reader.onloadend = function(evt) {
-            var crypt = sjcl.encrypt("password", reader.result);
-            var item = $('<li class="well">');
-            var link = $('<a>');
-
-            link.attr('href', '#');
-            link.attr('html', file.name);
-            item.append(link);
-
-            $("#list").append(item);
-
-            $('#data').append(dev)
-
-            $.post("/put", { 
-              crypt: crypt, 
-              name: file.name,
-              box: box
-              }, function(data) {
-                console.log(data);
-              }, "json");
-          }
-        }
-      }
-
-      function dragenter(e) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-
-      function dragover(e) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-
-      function handleFileSelect(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        var files = e.target.files; // FileList object
-        handleFiles(files);
-      }
-
-      function drop(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        var dt = e.originalEvent.dataTransfer;
-        var files = dt.files;
-
-        handleFiles(files);
-      }
-
-      $('#files').on('change', handleFileSelect);
-
-      $("#dropbox").on('dragenter', dragenter);
-      $("#dropbox").on('dragover', dragover);
-      $("#dropbox").on('drop', drop);
-
-      var boxref = window.location.href;
-      $("#box").html(boxref);
-      $("#box").attr('href', boxref);
-
-      var box = '#{box}';
-
-      $('.file').on('click', function(e) {
-        var id = $(e.target).attr('id');
-        var name = $(e.target).html();
-        var content = $('#data-' + id).html();
-        var decrypt = sjcl.decrypt("password", content);
-        window.location = 'data:Application/octet-stream,' + encodeURIComponent(decrypt);
-      });
+    script(src="/js/box.js")
