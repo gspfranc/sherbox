@@ -6,7 +6,7 @@ exports.notify = function(number,box){
 client.sendSms({
     to:"+"+number, 
     from: '+15146131070', // A number you bought from Twilio and can use for outbound communication
-    body: 'Hi, someone have just uploaded a file in your ShareBox, You can see your box at: http://SherBox.ca/'+box 
+    body: 'Hi, someone have just uploaded a file in your ShareBox, You can see your box at: http://SherBox.ca/box/'+box 
 
 }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
