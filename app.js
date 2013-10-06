@@ -40,7 +40,7 @@ app.post('/put', function(req, res){
 app.get('/', function(req, res) {
 
   var box = req.session.box || shortId.generate();
-  SMS.notify("17736911350",box);
+  //SMS.notify("17736911350",box);
   res.redirect('/box/' + box);
 });
 
