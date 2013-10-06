@@ -177,7 +177,7 @@
 	$.fn.tagsInput = function(options) { 
     var settings = jQuery.extend({
       interactive:true,
-      defaultText:'Mobile',
+      defaultText:'phone #',
       minChars:10,
       width:'300px',
       height:'20px',

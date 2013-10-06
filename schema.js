@@ -10,7 +10,7 @@ var linkSchema = new Schema({
 
 var boxSchema = new Schema({
   box: String,
-  phoneNumber:String,
+  mobiles: Array,
   createdOn: Date
 });
 

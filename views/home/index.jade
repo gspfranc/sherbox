@@ -57,8 +57,14 @@ html
             div.modal-footer
               button(type="button" class="btn btn-default" data-dismiss="modal") Close   
     script(src="/js/box.js")
-    
     script.
-      $('#tags').tagsInput();
+      $('#tags').tagsInput({
+        onAddTag: function(val) {
+          $.post('/phone/add', { box: box, mobile: val});
+        },
+        onRemoveTag: function(val) {
+          $.post('/phone/remove', { box: box, mobile: val});
+        }
+      });
 
 

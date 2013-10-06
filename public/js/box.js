@@ -1,20 +1,17 @@
 var password;
 
 function startCountdown(){
-  console.log("maman");
   var timeLimit = 60 * 1000; // in sec
   var expiration_time = new Date().getTime() + timeLimit;
   var hours, minutes, seconds;
   var countdown = document.getElementById('countdown');
   var timer = setInterval(function() {
-   console.log("patate");
     var current_time = new Date().getTime();
     var seconds_left = (expiration_time - current_time) / 1000
     hours = parseInt(seconds_left / 3600);
     seconds_left = parseInt(seconds_left % 3600);
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-
     if (minutes > 4 && minutes < 15)
       countdown.style.color = "#FFFF00"
     else if (minutes < 3)

@@ -16,6 +16,10 @@
   text-decoration: none;
 }
 
+#dropbox {
+  margin: 20px 0;
+}
+
 #dropbox h2 {
   color: gray;
   text-align : center;

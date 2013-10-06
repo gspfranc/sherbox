@@ -65,5 +65,13 @@ app.get('/box/:box', function(req, res){
   });
 });
 
+app.post('/phone/add', function(req, res) {
+  console.log('BOX', req.body.box);
+  Boxes.findOne({ box: req.body.box }, function(err, box) {
+    box.mobiles.push(req.body.mobile);
+    box.save(function() {});
+  });  
+});
+
 app.listen(3000);
 console.log("Listening on port 3000")
