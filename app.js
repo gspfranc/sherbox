@@ -27,7 +27,7 @@ app.post('/put', function(req, res){
     if (err) console.log(err);
 
     Boxes.findOne({ box: req.body.box }, function (err, mybox) {
-      mybox.mobiles.forEach(function() {
+      mybox.mobiles.forEach(function(phone) {
         SMS.notify(phone, mybox.box);
       });
     });
