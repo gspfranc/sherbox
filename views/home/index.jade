@@ -58,9 +58,12 @@ html
 
     script.
       $('#tags').tagsInput({
-        onChange: function(e) {
+        onAddTag: function(e) {
           console.log(e);  
-        }  
+        },
+        onRemoveTag: function(e) {
+          console.log(e);  
+        }
       });
 
 
