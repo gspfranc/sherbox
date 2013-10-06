@@ -22,8 +22,20 @@ html
             h4 Box : <a id="box"></a>   
      div.container
       div.page-content
-        p SMS notification: 
-          input(name="tags" id="tags" value="" maxlength="10")
+        
+        a(data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg") Notifications
+      div(class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+        div.modal-dialog
+          div.modal-content
+            div.modal-header
+              button(type="button" class="close" data-dismiss="modal" aria-hidden="true") &times;
+              h4(class="modal-title") Notifications settings
+            div.modal-body
+              p SMS notification: 
+              input(name="tags" id="tags" value="" maxlength="10")
+            div.modal-footer
+              button(type="button" class="btn btn-primary") Save
+
       script.
         $('#tags').tagsInput();
       div.row
