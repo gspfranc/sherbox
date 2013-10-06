@@ -124,5 +124,8 @@ $(document).ready(function(){
   $("#twitterurl").attr('href', 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(boxref));
 
   startCountdown(window.createdOn);
+  setTimeout(function() {
+    $('#title h2').slideUp();
+  }, 4000);
 
 });
