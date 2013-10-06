@@ -18,7 +18,7 @@ app.configure( function() {
 app.post('/put', function(req, res){
   console.log(req.body.crypt);
   Links.create({ 
-	shortID: shortId.generate()
+	shortID: shortId.generate(),
     name: req.body.name, 
     crypt: req.body.crypt, 
     box: req.body.box

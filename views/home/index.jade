@@ -7,11 +7,19 @@ html
     script(src="/js/jquery.js")
     script(src="/js/bootstrap.js")
     script(src="/js/sjcl.js")
+    script(src="/js/labels/jquery.tagsinput.js")
+    link(rel="stylesheet" href="/js/labels/jquery.tagsinput.css")
   body
     div.container
       div.page-header
         h1 Sherbox <small>securly share your files</small>
         h4 Box : <a id="box"></a>
+    div.container
+      div.page-content
+        p SMS notification: 
+          input(name="tags" id="tags" value="" maxlength="10")
+      script.
+        $('#tags').tagsInput();
 
       div.row
         div#dropbox.well.col-md-10.col-md-offset-1
