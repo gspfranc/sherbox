@@ -50,11 +50,14 @@ html
               br
               h4 SMS 
               input(name="tags" id="tags" value="" maxlength="10")
+              a(href="https://www.facebook.com/sharer/sharer.php?u=http//SherBox.ca/box/#{box}" target="_blank") Share on Facebook
+              a(href="https://twitter.com/share" class="twitter-share-button" data-text="Want to share some files with me? Go check my SherBox at http://SherBox.ca/box/#{box}" data-size="large") Tweet
+              script.
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             div.modal-footer
               button(type="button" class="btn btn-default" data-dismiss="modal") Close   
     script(src="/js/box.js")
     
-
     script.
       $('#tags').tagsInput();
 
