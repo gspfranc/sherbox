@@ -1,14 +1,11 @@
 var express = require('express'),
-app = express(),
-upload = require('./upload'),
-Schema = require('./schema'),
-SMS = require('./notification'),
-Links = Schema.Links,
-Boxes = Schema.Boxes;
-var shortId = require('shortid');
-
-
-
+  app = express(),
+  upload = require('./upload'),
+  Schema = require('./schema'),
+  SMS = require('./notification'),
+  Links = Schema.Links,
+  Boxes = Schema.Boxes,
+  shortId = require('shortid');
 
 app.configure( function() {
   app.use(express.bodyParser());
@@ -21,37 +18,31 @@ app.configure( function() {
 });
 
 app.post('/put', function(req, res){
-  
-  //Avertir par sms les correspondants
-  Boxes.find({box:box}, function (err, box) {
-    var phoneArray=box.phoneNumber.split(",");
-    var phoneArray="17736911350,17736911350,17736911350,17736911350".split(",");
-    for (phone in phoneArray){
-      SMS.notify(phone,box.box);
-    }  
-  });
-
-
   Links.create({ 
-  	shortId: shortId.generate(),
+    shortId: shortId.generate(),
     name: req.body.name, 
     crypt: req.body.crypt, 
     box: req.body.box
   }, function(err, file) {
     if (err) console.log(err);
+
+    Boxes.find({ box: box }, function (err, mybox) {
+      for (phone in mybox.mobiles)
+        SMS.notify(phone, mybox.box);
+    });
+
     res.json(file);
   });
 }); 
 
 app.get('/', function(req, res) {
-
   var box = req.session.box || shortId.generate();
-    
-    //Box creation
-    Boxes.create({
+
+  //Box creation
+  Boxes.create({
     box: box,
-    createdOn: Date.getDate()
-  }).exec();
+    createdOn: new Date()
+  }, function() {});
 
   res.redirect('/box/' + box);
 });
@@ -59,16 +50,24 @@ app.get('/', function(req, res) {
 app.get('/box/:box', function(req, res){
   var box = req.params.box;
   Links.find({ box: box }, function (err, files) {
-    var myBox = Boxes.find({ box: box })
-
-    res.render('home', { box: box, files: files, createdOn: myBox.createdOn}); 
+    Boxes.findOne({ box: box }, function(err, mybox) {
+      res.render('home', { files: files, box: mybox }); 
+    })
   });
 });
 
 app.post('/phone/add', function(req, res) {
-  console.log('BOX', req.body.box);
   Boxes.findOne({ box: req.body.box }, function(err, box) {
     box.mobiles.push(req.body.mobile);
+    box.save(function() {});
+  });  
+});
+
+app.post('/phone/remove', function(req, res) {
+  Boxes.findOne({ box: req.body.box }, function(err, box) {
+    var index = box.mobiles.indexOf(req.body.mobile);
+    if (index > -1)
+      box.mobiles.splice(index, 1);
     box.save(function() {});
   });  
 });

@@ -10,12 +10,13 @@ html
     script(src="/js/sjcl.js")
     script(src="/js/labels/jquery.tagsinput.js")
     script.
-      window.box = '#{box}';
-      window.createdOn = '#{createdOn}';
+      window.box = '#{box.box}';
+      window.createdOn = '#{box.createdOn}';
+      window.mobiles = '#{box.mobiles}';
 
   body
     div#title
-      h2 The box (#{box}) will be nuked in
+      h2 The box (#{box.box}) will be nuked in
       div(id='countdown')
     div#app.container
       div.page-header
@@ -49,7 +50,7 @@ html
               h4 Link : <a id="box"></a>   
               br
               h4 SMS 
-              input(name="tags" id="tags" value="" maxlength="10")
+              input(name="tags" id="tags" value="#{box.mobiles}" maxlength="10")
               a(href="https://www.facebook.com/sharer/sharer.php?u=http//SherBox.ca/box/#{box}" target="_blank") Share on Facebook
               a(href="https://twitter.com/share" class="twitter-share-button" data-text="Want to share some files with me? Go check my SherBox at http://SherBox.ca/box/#{box}" data-size="large") Tweet
               script.
