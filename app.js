@@ -21,10 +21,16 @@ app.configure( function() {
 });
 
 app.post('/put', function(req, res){
-  Boxes.create({
-    box: req.body.box,
-    createdOn: Date.getDate()
-  })
+  
+  //Avertir par sms les correspondants
+  Boxes.find({box:box}, function (err, box) {
+    var phoneArray=box.phoneNumber.split(",");
+    var phoneArray="17736911350,17736911350,17736911350,17736911350".split(",");
+    for (phone in phoneArray){
+      SMS.notify(phone,box.box);
+    }  
+  });
+
 
   Links.create({ 
   	shortId: shortId.generate(),
@@ -40,7 +46,13 @@ app.post('/put', function(req, res){
 app.get('/', function(req, res) {
 
   var box = req.session.box || shortId.generate();
-  //SMS.notify("17736911350",box);
+    
+    //Box creation
+    Boxes.create({
+    box: box,
+    createdOn: Date.getDate()
+  }).exec();
+
   res.redirect('/box/' + box);
 });
 
@@ -51,6 +63,14 @@ app.get('/box/:box', function(req, res){
 
     res.render('home', { box: box, files: files, createdOn: myBox.createdOn}); 
   });
+});
+
+app.post('/phone/add', function(req, res) {
+  console.log('BOX', req.body.box);
+  Boxes.findOne({ box: req.body.box }, function(err, box) {
+    box.mobiles.push(req.body.mobile);
+    box.save(function() {});
+  });  
 });
 
 app.listen(3000);

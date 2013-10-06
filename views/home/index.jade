@@ -50,19 +50,18 @@ html
               h4 Link : <a id="box"></a>   
               br
               h4 SMS 
-              input(name="tags" id="tags" value="12313897123,8723981723" maxlength="10")
+              input(name="tags" id="tags" value="" maxlength="10")
+              a(href="https://www.facebook.com/sharer/sharer.php?u=http//SherBox.ca/box/#{box}" target="_blank") Share on Facebook
             div.modal-footer
               button(type="button" class="btn btn-default" data-dismiss="modal") Close   
     script(src="/js/box.js")
-    
-
     script.
       $('#tags').tagsInput({
-        onAddTag: function(e) {
-          console.log(e);  
+        onAddTag: function(val) {
+          $.post('/phone/add', { box: box, mobile: val});
         },
-        onRemoveTag: function(e) {
-          console.log(e);  
+        onRemoveTag: function(val) {
+          $.post('/phone/remove', { box: box, mobile: val});
         }
       });
 
