@@ -77,12 +77,15 @@ $(document).ready(function(){
 
   var fl = $('#list li').length;
 
-  msg = fl ? "Password" : "Create a password" ;
+  msg = fl ? "Password" : "Create a password for this new box" ;
 
   if (!password) {
-    password = prompt(msg);  
+    while(!password)
+      password = prompt(msg);  
     localStorage.setItem(box, password);
   }
+  
+  console.log(password);
 
   $('#files').on('change', handleFileSelect);
 
