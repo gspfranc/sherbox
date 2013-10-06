@@ -1,3 +1,5 @@
+var password;
+
 function handleFiles(files) {
   for (var i = 0, f; f = files[i]; i++) {
     var file = files[i];
@@ -7,13 +9,13 @@ function handleFiles(files) {
     reader.onloadend = function(evt) {
       var dropbox = $("#dropbox h2");
       dropbox.html("Encrypting...");
-      var crypt = sjcl.encrypt("password", reader.result);
+      var crypt = sjcl.encrypt(password, reader.result);
 
       dropbox.html("Sending...");
       $.post("/put", { 
         crypt: crypt, 
         name: file.name,
-        box: box
+        box: window.box
       }, function(data) {
         dropbox.html("Done!");
         var div = $('<div id="data-' + data.shortId + '">');
@@ -68,8 +70,7 @@ $("#dropbox").on('dragenter', dragenter);
 $("#dropbox").on('dragover', dragover);
 $("#dropbox").on('drop', drop);
 
-var box = '#{box}';
-var boxref = window.location.origin + '/box/' + box;
+var boxref = window.location.origin + '/box/' + window.box;
 $("#box").html(boxref);
 $("#box").attr('href', boxref);
 
@@ -78,10 +79,15 @@ $(document).on('click', '.file', function(e) {
   var id = $(e.target).attr('id');
   var name = $(e.target).html();
   var content = $('#data-' + id).html();
-  var decrypt = sjcl.decrypt("password", content);
+  var decrypt = sjcl.decrypt(password, content);
   window.location = 'data:Application/octet-stream,' + encodeURIComponent(decrypt);
 });
 
 $(document).ready(function(){
+  var password = localStorage.getItem(box);
 
+  if (!password) {
+    password = prompt('Password');  
+    localStorage.setItem(box, password);
+  }
 });
