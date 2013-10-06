@@ -4,11 +4,11 @@ html
     title Sherbox #{hello}
     link(href="/css/bootstrap.css" rel="stylesheet")
     link(href="/css/style.css" rel="stylesheet")
+    link(rel="stylesheet" href="/js/labels/jquery.tagsinput.css")
     script(src="/js/jquery.js")
     script(src="/js/bootstrap.js")
     script(src="/js/sjcl.js")
     script(src="/js/labels/jquery.tagsinput.js")
-    link(rel="stylesheet" href="/js/labels/jquery.tagsinput.css")
     script.
       window.box = '#{box}';
 
@@ -34,7 +34,8 @@ html
         ul#list.list-inline
           - each file in files
             li
-              a.file.well(id="#{file.shortId}", href="#") #{file.name}
+              a.file.well(id="#{file.shortId}", href="#") 
+                span #{file.name}
 
       div#data
         - each file in files

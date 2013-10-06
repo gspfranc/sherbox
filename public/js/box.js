@@ -64,17 +64,6 @@ function drop(e) {
   handleFiles(files);
 }
 
-$('#files').on('change', handleFileSelect);
-
-$("#dropbox").on('dragenter', dragenter);
-$("#dropbox").on('dragover', dragover);
-$("#dropbox").on('drop', drop);
-
-var boxref = window.location.origin + '/box/' + window.box;
-$("#box").html(boxref);
-$("#box").attr('href', boxref);
-
-
 $(document).on('click', '.file', function(e) {
   var id = $(e.target).attr('id');
   var name = $(e.target).html();
@@ -84,10 +73,24 @@ $(document).on('click', '.file', function(e) {
 });
 
 $(document).ready(function(){
-  var password = localStorage.getItem(box);
+  password = localStorage.getItem(box);
+
+  var fl = $('#list li').length;
+
+  msg = fl ? "Password" : "Create a password" ;
 
   if (!password) {
-    password = prompt('Password');  
+    password = prompt(msg);  
     localStorage.setItem(box, password);
   }
+
+  $('#files').on('change', handleFileSelect);
+
+  $("#dropbox").on('dragenter', dragenter);
+  $("#dropbox").on('dragover', dragover);
+  $("#dropbox").on('drop', drop);
+
+  var boxref = window.location.origin + '/box/' + window.box;
+  $("#box").html(boxref);
+  $("#box").attr('href', boxref);
 });
