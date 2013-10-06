@@ -1,17 +1,20 @@
 var password;
 
-function startCountdown(){
-  var timeLimit = 60 * 1000; // in sec
-  var expiration_time = new Date().getTime() + timeLimit;
+function startCountdown(createdOn){
+  // 2 hours
+  var expiration_time = new Date(createdOn);
+  expiration_time = new Date(expiration_time.getTime() + (2 * 60 * 60 * 1000));
   var hours, minutes, seconds;
   var countdown = document.getElementById('countdown');
   var timer = setInterval(function() {
-    var current_time = new Date().getTime();
-    var seconds_left = (expiration_time - current_time) / 1000
+    var current_time = new Date();
+    var seconds_left = (expiration_time - current_time) / 1000;
     hours = parseInt(seconds_left / 3600);
-    seconds_left = parseInt(seconds_left % 3600);
+    seconds_left = seconds_left % 3600;
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
+    if (hours >= 1)
+      countdown.style.color = "#FFFFFF"
     if (minutes > 4 && minutes < 15)
       countdown.style.color = "#FFFF00"
     else if (minutes < 3)
@@ -119,6 +122,6 @@ $(document).ready(function(){
   var boxref = window.location.origin + '/box/' + window.box;
   $("#box").val(boxref);
 
-  startCountdown();
+  startCountdown(window.createdOn);
 
 });
