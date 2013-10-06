@@ -11,12 +11,15 @@ html
     script(src="/js/labels/jquery.tagsinput.js")
     script.
       window.box = '#{box}';
+      window.createdOn = '#{createdOn}';
 
   body
     div#title
       h2 This is the box #{box}
     div#app.container
       div.page-header
+        div.row
+          div.countdown
         div.row
           div.col-md-6
             h1 Sherbox <small>securely share your files</small>
@@ -51,5 +54,10 @@ html
             div.modal-footer
               button(type="button" class="btn btn-default" data-dismiss="modal") Close
     script(src="/js/box.js")
+<<<<<<< HEAD
+    script(src="/js/countdown.js")
+
+=======
     script.
       $('#tags').tagsInput();
+>>>>>>> e05056053422fd772de6da2abdd36a4e015534f1
