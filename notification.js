@@ -1,4 +1,4 @@
-var client = require('twilio')('ACa8710937acf29f2aa389d73d9a06d7a8', '422155d2f060a2b5c01329b1877e0743');
+var client = require('twilio')('', '');
 
 exports.notify = function(number,box){
 	if (!(number.charAt(0) == '1')){
